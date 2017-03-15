@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yyx.library.SlideCloseLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/scl_iv"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <com.yyx.slidecloselayout.widget.TouchViewPager
+        android:id="@+id/scl_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.yyx.slidecloselayout.widget.TouchViewPager>
+
+</com.yyx.library.SlideCloseLayout>
