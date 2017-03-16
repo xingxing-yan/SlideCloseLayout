@@ -19,6 +19,9 @@ import com.yyx.library.SlideCloseLayout;
 import com.yyx.slidecloselayout.Model;
 import com.yyx.slidecloselayout.R;
 import com.yyx.slidecloselayout.util.GlideUtils;
+import com.yyx.slidecloselayout.widget.TouchImageView;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 
 /**
@@ -26,7 +29,6 @@ import com.yyx.slidecloselayout.util.GlideUtils;
  */
 
 public class SlideCloseLayoutActivity extends AppCompatActivity {
-    public static final String VIEW_NAME_HEADER_IMAGE = "detail:header:image";
     private SlideCloseLayout mSlideCloseLayout;
     private ViewPager mPager;
 
@@ -89,18 +91,6 @@ public class SlideCloseLayoutActivity extends AppCompatActivity {
             View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
             final ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-
-//            imageView.setOnTouchImageViewListener(new TouchImageView.OnTouchImageViewListener() {
-//                @Override
-//                public void onMove() {
-//                    if (imageView.isZoomed()) {
-//                        mSlideCloseLayout.lock();
-//                    } else {
-//                        mSlideCloseLayout.unLock();
-//                    }
-//                }
-//            });
-
             GlideUtils.loadImage(mContext, url, imageView);
             container.addView(itemView);
             return itemView;
