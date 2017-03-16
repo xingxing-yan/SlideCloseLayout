@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ import com.yyx.library.SlideCloseLayout;
 import com.yyx.slidecloselayout.Model;
 import com.yyx.slidecloselayout.R;
 import com.yyx.slidecloselayout.util.GlideUtils;
-import com.yyx.slidecloselayout.widget.TouchImageView;
 
 
 /**
@@ -54,6 +54,16 @@ public class SlideCloseLayoutActivity extends AppCompatActivity {
         CustomPagerAdapter adapter = new CustomPagerAdapter(this);
         mPager.setAdapter(adapter);
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            mSlideCloseLayout.exitLayoutAnim(1000, false);
+            return true;
+        }else{
+            return super.onKeyDown(keyCode, event);
+        }
     }
 
     class CustomPagerAdapter extends PagerAdapter {

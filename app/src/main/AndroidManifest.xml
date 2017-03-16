@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SlideCloseLayoutActivity"
-            android:theme="@style/SlideCloseTheme"/>
+            android:theme="@style/SlideCloseTheme" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

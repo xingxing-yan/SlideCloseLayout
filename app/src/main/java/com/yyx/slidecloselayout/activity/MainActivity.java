@@ -40,5 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private void gotoActivity(Class<?> clazz){
         Intent intent = new Intent(MainActivity.this, SlideCloseLayoutActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.enter_fade, R.anim.exit_up_to_down);
     }
 }

@@ -5,13 +5,11 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -29,7 +27,6 @@ public class SlideCloseLayout extends FrameLayout {
     private Direction direction = Direction.NONE;
     private int previousY;
     private int previousX;
-    private int baseLayoutPosition;
     private boolean isScrollingUp;
     private boolean isLocked = false;
     private LayoutScrollListener mScrollListener;
@@ -110,7 +107,6 @@ public class SlideCloseLayout extends FrameLayout {
                 case MotionEvent.ACTION_DOWN:
                     previousX = x;
                     previousY = y;
-                    baseLayoutPosition = (int) ev.getY();
                     break;
                 case MotionEvent.ACTION_MOVE:
                     int diffY = y - previousY;
@@ -139,8 +135,8 @@ public class SlideCloseLayout extends FrameLayout {
                 case MotionEvent.ACTION_UP:
                     if (direction == Direction.UP_DOWN) {
                         int height = this.getHeight();
-                        if (Math.abs(getTranslationY()) > (height / 4)) {
-                           scrollAnim();
+                        if (Math.abs(getTranslationY()) > (height / 7)) {
+                          exitLayoutAnim(600, true);
                         } else {
                             ObjectAnimator positionAnimator = ObjectAnimator.ofFloat(this, "translationY", this.getTranslationY(), 0);
                             positionAnimator.setDuration(100);
@@ -152,7 +148,6 @@ public class SlideCloseLayout extends FrameLayout {
                         direction = Direction.NONE;
                         return true;
                     }
-
                     direction = Direction.NONE;
 
             }
@@ -162,10 +157,17 @@ public class SlideCloseLayout extends FrameLayout {
     }
 
     /**
-     * 上下滑动的动画
+     * 退出布局的动画
+     * @param duration 动画时长
+     * @param isFingerScroll   是否手指滑动触发
      */
-    private void scrollAnim(){
-        final ObjectAnimator anim = ObjectAnimator.ofFloat(this, "translationY", getTranslationY(), isScrollingUp ? -getHeight() : getHeight());
+    public void exitLayoutAnim(long duration, boolean isFingerScroll){
+        ObjectAnimator anim;
+        if (isFingerScroll){
+            anim = ObjectAnimator.ofFloat(this, "translationY", getTranslationY(), isScrollingUp ? -getHeight() : getHeight());
+        }else{
+            anim = ObjectAnimator.ofFloat(this, "translationY", 0, getHeight());
+        }
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -187,9 +189,8 @@ public class SlideCloseLayout extends FrameLayout {
                 }
             }
         });
-        anim.setDuration(100);
+        anim.setDuration(duration);
         anim.start();
-
     }
 
     public interface LayoutScrollListener {
