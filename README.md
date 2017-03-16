@@ -50,7 +50,7 @@ SlideCloseLayout继承自FrameLayout，所以可以当FrameLayout使用。
 ```
 通过setGradualBackground方法给SlideCloseLayout设置需要渐变的背景，如果没有设置，则不会有背景的变化。通过setLayoutSrcollListener给SlideCloseLayout设置结束监听，此时应该关闭Activity。
 
-如果想要按返回键时，也能执行SlideCloseLayout的退出动画效果，则需要在onKeyDown()中在返回键按下时执行SlideCloseLayout的exitLayoutAnim(long duration, boolean isFingerScroll)方法，如下：
+3. 如果想要按返回键时，也能执行SlideCloseLayout的退出动画效果，则需要在onKeyDown()中在返回键按下时执行SlideCloseLayout的exitLayoutAnim(long duration, boolean isFingerScroll)方法，如下：
 ```
 @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
