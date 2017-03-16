@@ -28,32 +28,27 @@ import com.yyx.slidecloselayout.util.GlideUtils;
 public class SlideCloseLayoutActivity extends AppCompatActivity {
     public static final String VIEW_NAME_HEADER_IMAGE = "detail:header:image";
     private SlideCloseLayout mSlideCloseLayout;
-    private ImageView mIv;
     private ViewPager mPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slide_close_layout);
+        //设置activity的背景为黑色
         getWindow().getDecorView().setBackgroundColor(Color.BLACK);
         mSlideCloseLayout = (SlideCloseLayout) findViewById(R.id.scl);
-        mIv = (ImageView) findViewById(R.id.scl_iv);
         mPager = (ViewPager) findViewById(R.id.scl_pager);
-
-        GlideUtils.loadImage(this, Model.ImgUrls[0], mIv);
-
-        //这个是必要设置的，否则不会有背景的渐变
+        //给控件设置需要渐变的背景。如果没有设置这个，则背景不会变化
         mSlideCloseLayout.setGradualBackground(getWindow().getDecorView().getBackground());
+        //设置监听，滑动一定距离后让Activity结束
         mSlideCloseLayout.setLayoutScrollListener(new SlideCloseLayout.LayoutScrollListener() {
             @Override
             public void onLayoutClosed() {
                 onBackPressed();
             }
         });
-
         CustomPagerAdapter adapter = new CustomPagerAdapter(this);
         mPager.setAdapter(adapter);
-
     }
 
     @Override
