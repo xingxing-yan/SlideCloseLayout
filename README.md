@@ -55,7 +55,7 @@ SlideCloseLayout继承自FrameLayout，所以可以当FrameLayout使用。
 @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK){
-            mSlideCloseLayout.exitLayoutAnim(1000, false);
+            mSlideCloseLayout.layoutExitAnim(1000, false);
             return true;
         }else{
             return super.onKeyDown(keyCode, event);
@@ -63,3 +63,5 @@ SlideCloseLayout继承自FrameLayout，所以可以当FrameLayout使用。
     }
 ```
 基本用法就是这样，是不是很简单，SlideCloseLayout控件的具体实现请看源码。
+
+### 博客地址：[SlideCloseLayout—仿头条多图预览的页面关闭效果](http://blog.csdn.net/xingxing_yan/article/details/62885936)
