@@ -3,6 +3,8 @@
 
 ##### 注：此效果是参考[SwipableLayout](https://github.com/SerhatSurguvec/SwipableLayout)项目改进的，效果更加贴近头条的效果。
 
+### 博客地址：[SlideCloseLayout—仿头条多图预览的页面关闭效果](http://blog.csdn.net/xingxing_yan/article/details/62885936)
+
 # 效果图：
 ![手指滑动退出](https://github.com/xingxing-yan/SlideCloseLayout/blob/master/git/finger2_exit.gif)
 ![按返回键退出](https://github.com/xingxing-yan/SlideCloseLayout/blob/master/git/back_exit.gif)
@@ -63,5 +65,3 @@ SlideCloseLayout继承自FrameLayout，所以可以当FrameLayout使用。
     }
 ```
 基本用法就是这样，是不是很简单，SlideCloseLayout控件的具体实现请看源码。
-
-### 博客地址：[SlideCloseLayout—仿头条多图预览的页面关闭效果](http://blog.csdn.net/xingxing_yan/article/details/62885936)
