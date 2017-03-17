@@ -56,7 +56,7 @@ public class SlideCloseLayoutActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK){
-            mSlideCloseLayout.exitLayoutAnim(1000, false);
+            mSlideCloseLayout.layoutExitAnim(1000, false);
             return true;
         }else{
             return super.onKeyDown(keyCode, event);

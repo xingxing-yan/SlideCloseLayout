@@ -111,7 +111,7 @@ public class SlideCloseLayout extends FrameLayout {
                 case MotionEvent.ACTION_MOVE:
                     int diffY = y - previousY;
                     int diffX = x - previousX;
-
+                    //判断方向
                     if (direction == Direction.NONE) {
                         if (Math.abs(diffX) > Math.abs(diffY)) {
                             direction = Direction.LEFT_RIGHT;
@@ -121,29 +121,27 @@ public class SlideCloseLayout extends FrameLayout {
                             direction = Direction.NONE;
                         }
                     }
-
+                    //当方向为垂直方向时，移动布局并改变透明度
                     if (direction == Direction.UP_DOWN) {
                         isScrollingUp = diffY <= 0;
+                        this.setTranslationY(diffY);
                         if (mBackground != null){
                             int alpha = (int) (255 * Math.abs(diffY * 1f)) / getHeight();
                             mBackground.setAlpha(255 - alpha);
                         }
-                        this.setTranslationY(diffY);
                         return true;
                     }
                     break;
                 case MotionEvent.ACTION_UP:
                     if (direction == Direction.UP_DOWN) {
                         int height = this.getHeight();
+                        //判断滑动距离是否大于height/7
                         if (Math.abs(getTranslationY()) > (height / 7)) {
-                          exitLayoutAnim(600, true);
+                            //执行退出动画
+                          layoutExitAnim(600, true);
                         } else {
-                            ObjectAnimator positionAnimator = ObjectAnimator.ofFloat(this, "translationY", this.getTranslationY(), 0);
-                            positionAnimator.setDuration(100);
-                            positionAnimator.start();
-                            if (mBackground != null){
-                                mBackground.setAlpha(255);
-                            }
+                            //执行恢复动画
+                           layoutRecoverAnim();
                         }
                         direction = Direction.NONE;
                         return true;
@@ -161,14 +159,14 @@ public class SlideCloseLayout extends FrameLayout {
      * @param duration 动画时长
      * @param isFingerScroll   是否手指滑动触发
      */
-    public void exitLayoutAnim(long duration, boolean isFingerScroll){
-        ObjectAnimator anim;
+    public void layoutExitAnim(long duration, boolean isFingerScroll){
+        ObjectAnimator exitAnim;
         if (isFingerScroll){
-            anim = ObjectAnimator.ofFloat(this, "translationY", getTranslationY(), isScrollingUp ? -getHeight() : getHeight());
+            exitAnim = ObjectAnimator.ofFloat(this, "translationY", getTranslationY(), isScrollingUp ? -getHeight() : getHeight());
         }else{
-            anim = ObjectAnimator.ofFloat(this, "translationY", 0, getHeight());
+            exitAnim = ObjectAnimator.ofFloat(this, "translationY", 0, getHeight());
         }
-        anim.addListener(new AnimatorListenerAdapter() {
+        exitAnim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (mBackground != null){
@@ -180,7 +178,7 @@ public class SlideCloseLayout extends FrameLayout {
 
             }
         });
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        exitAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 if (mBackground != null){
@@ -189,8 +187,20 @@ public class SlideCloseLayout extends FrameLayout {
                 }
             }
         });
-        anim.setDuration(duration);
-        anim.start();
+        exitAnim.setDuration(duration);
+        exitAnim.start();
+    }
+
+    /**
+     * 恢复动画
+     */
+    private void layoutRecoverAnim(){
+        ObjectAnimator recoverAnim = ObjectAnimator.ofFloat(this, "translationY", this.getTranslationY(), 0);
+        recoverAnim.setDuration(100);
+        recoverAnim.start();
+        if (mBackground != null){
+            mBackground.setAlpha(255);
+        }
     }
 
     public interface LayoutScrollListener {
